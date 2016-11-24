@@ -13,7 +13,8 @@ provider = Adafruit_BluefruitLE.get_provider()
 def main():
     provider.clear_cached_data()
     adapter = provider.get_default_adapter()
-    adapter.power_on()
+    if not adapter.is_powered:
+        adapter.power_on()
     print('Searching for device...')
     try:
         adapter.start_scan()
@@ -40,6 +41,6 @@ def main():
         print('battery: {0}'.format(ord(v[0])))
     finally:
         device.disconnect()
-        adapter.power_off()
+        #adapter.power_off()
 provider.initialize()
 provider.run_mainloop_with(main)
