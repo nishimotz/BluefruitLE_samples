@@ -10,6 +10,9 @@ BATTERY_LEVEL_UUID = uuid.UUID('00002a19-0000-1000-8000-00805f9b34fb')
 
 provider = Adafruit_BluefruitLE.get_provider()
 
+def to_str(v):
+    return ''.join([chr(c) if isinstance(c, int) else c for c in v])
+    
 def main():
     provider.clear_cached_data()
     adapter = provider.get_default_adapter()
@@ -37,7 +40,7 @@ def main():
         print('characteristic uuid: {0}'.format(battLevel.uuid))
         print('reading...')
         v = battLevel.read_value()
-        v = [chr(c) if isinstance(c, int) else c for c in v]
+        v = to_str(v)
         print('battery: {0}'.format(ord(v[0])))
     finally:
         device.disconnect()
