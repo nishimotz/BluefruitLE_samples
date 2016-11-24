@@ -13,7 +13,8 @@ provider = Adafruit_BluefruitLE.get_provider()
 def main():
     provider.clear_cached_data()
     adapter = provider.get_default_adapter()
-    adapter.power_on()
+    if not adapter.is_powered:
+        adapter.power_on()
     print('Searching for device...')
     try:
         adapter.start_scan()
