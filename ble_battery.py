@@ -40,6 +40,5 @@ def main():
     finally:
         device.disconnect()
         adapter.power_off()
-
 provider.initialize()
 provider.run_mainloop_with(main)
