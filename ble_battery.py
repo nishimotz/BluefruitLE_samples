@@ -36,7 +36,7 @@ def main():
         print('characteristic uuid: {0}'.format(battLevel.uuid))
         print('reading...')
         v = battLevel.read_value()
-        v = [chr(c) for c in v]
+        v = [chr(c) if isinstance(c, int) else c for c in v]
         print('battery: {0}'.format(ord(v[0])))
     finally:
         device.disconnect()
